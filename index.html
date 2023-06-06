@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="normalize.css">
+    <style>
+      /*                                THE PROBLEM                                */
+      .parallax__group:nth-child(1) {
+        height: 1500px;
+      }
+      .parallax__group:nth-child(1) .parallax__layer--background {
+        height: 974px;
+        top: 314px;
+      }
+      /*
+       * 👆 These are magic numbers, carefully calibrated for the present content. *
+       * As soon as the content grows or shrinks, they will break. In particular,  *
+       * the snazzy background may be too high up (creating a gap between the top  *
+       * of the page and the heading), too low down (creating white space at the   *
+       * top of the page), too tall (leaving snazzy background below the footer)   *
+       * and/or too short (leaving whitespace between the snazzy background and    *
+       * the footer). How can I avoid these magic numbers?                         *
+       *                                END PROBLEM                                *
+       */
+
+      .parallax {
+        /*
+         * If height > 100vh, content gets clipped by the viewport.
+         * If height < 100vh, you get scrollbars and whitespace in the viewport.
+         */
+        height: 100vh;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+        perspective: 300px;
+      }
+
+      .parallax__group {
+        position: relative;
+        transform-style: preserve-3d;
+        border: 5px solid red;
+
+        /* So we can see the parallax layers side-on for debugging purposes */
+        transform: translate3d(700px, 0, -800px) rotateY(30deg);
+      }
+
+      .parallax__group:nth-child(1) {
+        color: white;
+      }
+
+      .parallax__group:nth-child(2) {
+        height: 50vh;
+      }
+
+      .parallax__layer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 5px solid blue;
+      }
+
+      .parallax__layer--foreground {
+        transform: translateZ(0px);
+        z-index: 4;
+      }
+
+      .parallax__layer--background {
+        transform: translateZ(-300px) scale(2);
+        z-index: 3;
+      }
+
+      .snazzy-background {
+        background: repeating-linear-gradient(
+          -45deg,
+          rgba(0,175,0,.5) 0,
+          rgba(0,175,0,.5) 25px,
+          rgba(0,0,0,.5) 30px,
+          rgba(0,0,0,.5) 55px,
+          rgba(0,175,0,.5) 60px) top left;
+      }
+
+      html, body {
+        font-family: sans-serif;
+        overflow: hidden;
+      }
+
+      h1 {
+        font-size: 64pt;
+        text-align: center;
+      }
+
+      main {
+        background-color: rgba(255,255,0,.5);
+        margin-block: 5rem;
+        margin-inline: max(3rem, 80% - 65rem);
+        padding: 1rem 3rem;
+        color: black;
+      }
+
+      main p {
+        font-size: 21pt;
+      }
+
+      footer div {
+        background-color: rgba(125,100,0,.5);
+        color: white;
+      }
+
+      footer p {
+        font-size: 18pt;
+        font-style: italic;
+        margin: 1rem auto 5rem auto;
+        padding: 0 3rem;
+        text-align: end;
+      }
+    </style>
+  </head>
+
+  <body class="parallax">
+    <div class="parallax__group">
+      <div class="parallax__layer parallax__layer--background snazzy-background">
+      </div>
+
+      <div class="parallax__layer parallax__layer--foreground">
+        <header>
+          <h1>My snazzy website heading</h1>
+        </header>
+
+        <main>
+          <p>
+            Eget, vestibulum nullam pulvinar a. Morbi arcu tempor magnis nisl
+            convallis dapibus. Lobortis suspendisse dapibus ipsum malesuada
+            bibendum elementum augue conubia sociosqu adipiscing. Suscipit nec
+            lacinia ornare fusce dapibus rutrum dolor, quis elit interdum a.
+            Justo imperdiet lacus venenatis porttitor facilisi est. Leo sem
+            est ipsum ipsum dui? Porttitor non nascetur lectus at donec eget
+            posuere pulvinar urna orci tortor mauris. At metus arcu mus ligul,
+            consectetur arcu nam duis sodales nam tortor interdum. Etiam,
+            porta placerat ipsum ultricies phasellus proin est eget cras.
+            Primis habitasse consequat ante justo.
+          </p>
+
+          <p>
+            Consequat cursus laoreet non. Neque vitae euismod aliquet gravida
+            donec risus eget at rhoncus ante nostra facilisis. Egestas,
+            himenaeos porta vitae convallis. Dignissim habitant magna egestas
+            viverra. Conubia lacus aptent sollicitudin vivamus eros, sit
+            potenti! Conubia nostra litora rutrum nam, fermentum sed! Laoreet
+            curabitur mus etiam mi nulla conubia. Magnis congue lobortis
+            magnis malesuada elit ornare lorem? Mus himenaeos aliquam nullam,
+            hendrerit urna nam ut elit nostra habitant hendrerit. Maecenas
+            parturient primis dapibus nec tortor sociis at mollis per faucibu.
+            Dis et elit amet!
+          </p>
+
+          <p>
+            Morbi placerat commodo lorem morbi placerat suspendisse parturient
+            quisque varius consectetur. Faucibus, ridiculus fermentum sociosqu
+            ultrices torquent accumsan gravida. Congue tristique netus laoree
+            . Dictumst congue egestas eleifend maecenas dui at vehicula.
+            Pulvinar vestibulum venenatis pellentesque eleifend fringilla
+            malesuada egestas porttitor nibh accumsan. Justo nibh habitant mi,
+            fames ultricies nunc. Bibendum felis nisi mattis duis. Ut elit
+            facilisis nascetur ultricies potenti sem mus habitasse amet erat
+            elementum. Consequat feugiat taciti proin.
+          </p>
+
+          <p>
+            Euismod nascetur interdum nunc! Tellus aenean dolor dictum leo
+            habitasse luctus convallis viverra diam. Curae; dolor dapibus nec
+            nunc habitant phasellus vivamus gravida arcu, cursus nostra? Eros
+            purus natoque facilisi. Cras malesuada pulvinar urna commodo arcu.
+            Condimentum eu rutrum dignissim aptent; porttitor dolor montes
+            netus erat gravida. Faucibus malesuada leo fusce? Sociosqu curae;
+            vel habitasse porttitor convallis diam nullam donec. Laoreet clas,
+            sociis turpis commodo adipiscing lacus cras! Vitae luctus eros
+            curabitur. Curae; euismod arcu libero proin penatibus semper sit?
+            Orci.
+          </p>
+
+          <p>
+            Ad felis in a nisi parturient rhoncus erat nunc, sodales cras
+            elementum leo. Condimentum vehicula, fermentum ut risus ipsum
+            donec erat per. Condimentum euismod ante pulvinar urna elit
+            consectetur taciti nibh aliquam sem nibh. Venenatis curabitur
+            natoque, malesuada velit tincidunt. Ultrices rhoncus tellus
+            feugiat eleifend laoreet augue aliquet per cras sagittis. Varius
+            habitasse morbi dis velit suscipit fermentum sollicitudin mi elit
+            at sodales. Facilisis bibendum?
+          </p>
+        </main>
+      </div> <!-- Parallax foreground -->
+    </div> <!-- Parallax group -->
+
+    <footer class="parallax__group">
+      <div class="parallax__layer parallax__layer--foreground">
+        <p>Copyright my arse <time datetime="2023">MMXXIII</time></p>
+      </div>
+    </footer>
+  </body>
+</html>
