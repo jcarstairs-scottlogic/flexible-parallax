@@ -4,6 +4,12 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="normalize.css">
     <style>
+      /* If you want to see what's going on, uncomment the bit below */
+      .parallax__group {
+        transition: transform 500ms;
+        /* transform: translate3d(700px, 0, -800px) rotateY(30deg); */
+      }
+
       .parallax {
         /*
          * If height > 100vh, content gets clipped by the viewport.
@@ -20,9 +26,6 @@
         position: relative;
         transform-style: preserve-3d;
         border: 5px solid red;
-
-        /* So we can see the parallax layers side-on for debugging purposes */
-        transform: translate3d(700px, 0, -800px) rotateY(30deg);
       }
 
       .parallax__group:nth-child(1) {
