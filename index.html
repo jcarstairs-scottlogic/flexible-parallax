@@ -4,25 +4,6 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="normalize.css">
     <style>
-      /*                                THE PROBLEM                                */
-      .parallax__group:nth-child(1) {
-        height: 1500px;
-      }
-      .parallax__group:nth-child(1) .parallax__layer--background {
-        height: 974px;
-        top: 314px;
-      }
-      /*
-       * 👆 These are magic numbers, carefully calibrated for the present content. *
-       * As soon as the content grows or shrinks, they will break. In particular,  *
-       * the snazzy background may be too high up (creating a gap between the top  *
-       * of the page and the heading), too low down (creating white space at the   *
-       * top of the page), too tall (leaving snazzy background below the footer)   *
-       * and/or too short (leaving whitespace between the snazzy background and    *
-       * the footer). How can I avoid these magic numbers?                         *
-       *                                END PROBLEM                                *
-       */
-
       .parallax {
         /*
          * If height > 100vh, content gets clipped by the viewport.
@@ -53,21 +34,22 @@
       }
 
       .parallax__layer {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
         border: 5px solid blue;
       }
 
       .parallax__layer--foreground {
         transform: translateZ(0px);
         z-index: 4;
+        transform-style: preserve-3d;
       }
 
       .parallax__layer--background {
-        transform: translateZ(-300px) scale(2);
+        position: absolute;
+        top: -100vh;
+        right: 0;
+        bottom: -100vh;
+        left: 0;
+        transform: translateZ(-300px) scaleX(2);
         z-index: 3;
       }
 
@@ -120,10 +102,10 @@
 
   <body class="parallax">
     <div class="parallax__group">
-      <div class="parallax__layer parallax__layer--background snazzy-background">
-      </div>
-
       <div class="parallax__layer parallax__layer--foreground">
+        <div class="parallax__layer parallax__layer--background snazzy-background">
+        </div>
+
         <header>
           <h1>My snazzy website heading</h1>
         </header>
